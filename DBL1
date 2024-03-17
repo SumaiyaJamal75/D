@@ -1,0 +1,10 @@
+CREATE TABLE Student( StudentID varchar(9), Name varchar(20), Address varchar(50), Contact
+varchar(11))
+
+USE lab2
+CREATE TABLE Student(StudentID int, LastName varchar(20), FirstName varchar(20), Address var-
+char(50), City varchar(20));
+DESCRIBE student;
+INSERT INTO ‘student‘ (‘StudentID‘, ‘LastName‘, ‘FirstName‘, ‘Address‘, ‘City‘) VALUES (’1001’,
+’Das’, ’Utsha’, ’704, Shamim Shoroni, West Shewrapara’, ’Dhaka’);
+SELECT * FROM ‘student‘;
