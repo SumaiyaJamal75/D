@@ -1,0 +1,93 @@
+DROP DATABASE IF EXISTS bank;
+
+CREATE DATABASE bank;
+
+USE bank;
+
+CREATE TABLE branch (
+    branch_name VARCHAR(20),
+    branch_city VARCHAR(30),
+    assets DECIMAL(15, 2),
+    PRIMARY KEY (branch_name)
+);
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(30),
+    customer_city VARCHAR(20)
+);
+
+CREATE TABLE account (
+    account_number INT PRIMARY KEY,
+    branch_name VARCHAR(20),
+    balance DECIMAL(15, 2),
+    FOREIGN KEY (branch_name) REFERENCES branch(branch_name)
+);
+
+CREATE TABLE loan (
+    loan_number INT PRIMARY KEY,
+    branch_name VARCHAR(20),
+    amount DECIMAL(15, 2),
+    FOREIGN KEY (branch_name) REFERENCES branch(branch_name)
+);
+
+CREATE TABLE depositor (
+    customer_id INT,
+    account_number INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (account_number) REFERENCES account(account_number),  
+    PRIMARY KEY (customer_id, account_number)
+);
+
+CREATE TABLE borrower (
+    customer_id INT,
+    loan_number INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (loan_number) REFERENCES loan(loan_number),
+    PRIMARY KEY (customer_id, loan_number)
+);
+INSERT INTO branch (branch_name, branch_city, assets) VALUES
+('Branch1', 'City1', 100000),
+('Branch2', 'City2', 150000),
+('Branch3', 'City3', 200000);
+
+
+INSERT INTO customers (customer_id, customer_name, customer_city) VALUES
+(222902058, 'Tawabur Rahaman Sakib', 'City1'),
+(222902060, 'Fahad Awal', 'City2'),
+(222902092, 'Nuren Abreshum Anonta', 'City3'),
+(223002062, 'Md. Samiul Hasan Tanvir', 'City4'),
+(223002071, 'MD. MURSHALIN MUCKDHO', 'City5'),
+(223002075, 'Sumaiya Jamal', 'City6'),
+(223002110, 'Ananya Roy Bristi', 'City7');
+
+
+
+
+INSERT INTO account (account_number, branch_name, balance) 
+VALUES
+(1001, 'Branch1', 50000),
+(1002, 'Branch2', 60000),
+(1003, 'Branch3', 70000);
+
+INSERT INTO loan (loan_number, branch_name, amount) 
+VALUES
+(2001, 'Branch1', 10000),
+(2002, 'Branch2', 15000),
+(2003, 'Branch3', 20000);
+
+INSERT INTO depositor (customer_id, account_number) 
+VALUES
+(222902058, 1001),
+(222902060, 1002),
+(222902092, 1003);
+
+INSERT INTO borrower (customer_id, loan_number) VALUES
+(222902058, 2001),
+(222902060, 2002),
+(222902092, 2003);
+
+
+
+
+
